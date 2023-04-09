@@ -1,0 +1,8 @@
+@import                 '../../Settings/global.scss';
+
+
+
+.home-design{
+    @include flex();
+    border: 1px solid red;
+}
