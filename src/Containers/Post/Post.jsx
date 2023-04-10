@@ -4,31 +4,85 @@ import { useSelector }                                      from "react-redux";
 import {userData}                                           from "../../Features/userSlice"
 import { useNavigate }                                      from 'react-router-dom';
 import Sidebar                                              from '../../Components/Sidebar/Sidebar';
+
+
+
 import './Post.scss';
 
 const Post = () => {
 
 
-
+    /**
+     * Hooks
+     */
     const [post,setPost]                  = useState(null)
     const userInfo                        = useSelector(userData);
     const navigate                        = useNavigate();
+    
+
     const [postData, setPostData]         = useState({
         title: '',
         description: '',
     })
 
+    const [userDetails, setUserDetails]         = useState()
+    console.log(userDetails)
 
+    const [editUserData,setEditUserData]          = useState({
+        open: false,
+        id:""
+    })
+
+    /**
+     * UseEffect
+     */
     useEffect(()=>{
         getPosts();
     },[])
-
+    
     useEffect(()=>{
         if(userInfo.token === ""){
             navigate('/')
         }
     })
 
+
+    /**
+     * Functions
+     */
+
+
+    /**
+     * Function to edit input field edit user
+     * @param {object} data 
+     */
+    const updateUserData = (data) => {
+        setUserDetails({...userDetails, [data.target.name]: data.target.value})
+    }
+    
+    /**
+     * Function to edit user data by admin/mod
+     * @param {object} post 
+     */
+    const editUser = (post) => {
+        console.log(post)
+        if(userInfo.user_role.toString() === "6431c06cccf174713344640b"){
+            setEditUserData({
+                open: !editUserData.open,
+                id:post._id
+            })
+        }
+    }
+
+    /**
+     * Function that update other users informations
+     */
+    const updateUserInfo = () => {
+        console.log("aqui")
+        console.log(userInfo)
+        console.log(editUserData)
+        console.log(userDetails)
+    }
 
     /**
      * This function will get all the post on DB and render on the page.
@@ -60,8 +114,6 @@ const Post = () => {
     const updatePostData = (data) => {
         setPostData({...postData, [data.target.name]: data.target.value})
     }
-
-
 
     /**
      * This function will create a new post 
@@ -95,10 +147,37 @@ const Post = () => {
                         return(
                             <div key={post._id} className='post'>
                                 <div className="post-title">{post.title}</div>
-                                <div className='post-info'>
+                                <div className='post-info' onClick={() => editUser(post)}>
                                     <div>{post.userName}</div>
                                     <div>{post.userSurname}</div>
                                 </div>
+                                {editUserData.open ? (
+                                    <div className={editUserData.id === post._id? "showbox": "hidebox"}>
+                                        <div className='edit-user-input'>
+                                            <div>
+                                            <label htmlFor="name">Nome</label>
+                                            <input type="text" name='name' title='name' onChange={updateUserData} />
+                                            <label htmlFor="surname">Cognome</label>
+                                            <input type="text" name='surname' title='surname' onChange={updateUserData} />
+                                            </div>
+                                            <div>
+                                            <label htmlFor="email">Email</label>
+                                            <input type="text" name='email' title='email' onChange={updateUserData} />
+                                            <label htmlFor="role">Role</label>
+                                            <select name="role" id="role" onChange={updateUserData}>
+                                                <option value="">Seleziona un'opzione</option>
+                                                <option value="user">Usuario</option>
+                                                <option value="moderator">Moderatore</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => updateUserInfo()}>save</button>
+                                    </div>
+                                ):(
+                                    ""
+                                )}
+
                                 <div className="post-description">{post.description}</div>
                             </div>
                         )

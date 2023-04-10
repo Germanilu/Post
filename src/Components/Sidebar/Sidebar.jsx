@@ -15,7 +15,6 @@ const Sidebar = () => {
         password:""
     })
     
-    console.log(userDetails)
     const updateUserData = (data) => {
         setUserDetails({...userDetails, [data.target.name]: data.target.value})
     }
