@@ -17,7 +17,7 @@ const Post = () => {
         title: '',
         description: '',
     })
-    console.log(userInfo)
+
 
     useEffect(()=>{
         getPosts();
@@ -27,7 +27,6 @@ const Post = () => {
         if(userInfo.token === ""){
             navigate('/')
         }
-        getPosts();
     })
 
 

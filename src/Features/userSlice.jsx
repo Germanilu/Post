@@ -19,7 +19,13 @@ export const userSlice = createSlice({
            return{
             token: ""
            }
-        }
+        },
+        update: (state, action) => {
+            return {
+              ...state,
+              ...action.payload,
+            };
+          }
 
     }
 });
@@ -43,7 +49,36 @@ export const logOut = () => (dispatch) => {
     dispatch(logout())
 }
 
+//Update
+export const updateUser = (userInfo, userDetails) => async (dispatch) => {
+    try {
+        console.log("ENTRO AQUI")
+      let body = {
+        name: userDetails.name,
+        surname: userDetails.surname,
+        email: userDetails.email,
+        password: userDetails.password
+      };
+  
+      let config = {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      };
+  
+      const attempt = await axios.put(
+        `https://bbdd-post.onrender.com/api/editProfile`,
+        body,
+        config
+      );
+      if (attempt.status === 200) {
+        dispatch(update({ userDetails }));
+        dispatch(logout())
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const {login,logout}             = userSlice.actions;
+
+export const {login,logout,update}             = userSlice.actions;
 export const userData                   = (state) => state.user;
 export default                          userSlice.reducer;
