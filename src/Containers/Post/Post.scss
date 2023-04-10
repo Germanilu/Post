@@ -1,0 +1,86 @@
+@import                 '../../Settings/global.scss';
+
+.post-design{
+    @include flex();
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.sidebar-info-account{
+    border: 1px solid black;
+    width: 20%;
+    margin: 5rem 2rem 0rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    & .user-info-name{
+        @include font(inherit, 1rem,700,inherit,capitalize)
+    }
+}
+.main-post-view{
+    width: 100%;
+}
+.post-container{
+    width: 80%;
+    margin-top: 2rem;
+}
+
+.post{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+
+    .post-info{
+        width: 50%;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        @include font(inherit,0.8rem,400,inherit,capitalize);
+    }
+
+    .post-title{
+        @include font(inherit, 1.2rem,700,inherit,capitalize)
+    }
+    .post-description{
+        @include font($light_grey  ,0.9rem, 400,inherit)
+    }
+    
+}
+
+.create-post-container{
+    // border: 1px solid blue;
+    margin-top: 2rem;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    
+    .input-create-post{
+        display: flex;
+        flex-direction: column;
+
+        & label{
+            @include font($light_grey, 1rem,700,inherit,capitalize)
+        }
+    }
+
+    .create-post-title{
+        width: 30%;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.158);
+        margin-bottom: 1rem;        
+    }
+    .create-post-textarea{
+        width: 100%;
+        min-height: 150px;
+        border: 1px solid rgba(0, 0, 0, 0.158);
+        margin-top: 1rem;
+    }
+
+    .create-post-button{
+        width: 20%;
+        margin-top: 1.5rem;
+    }
+}

@@ -1,5 +1,5 @@
 import                                      './Login.scss';
-import React, { useState }       from "react";
+import React, { useEffect, useState }       from "react";
 import { useDispatch, useSelector}          from "react-redux";
 import {loginUser, userData}                from "../../Features/userSlice";
 import { useNavigate }                      from "react-router-dom";
@@ -14,6 +14,13 @@ const Login = () => {
     const dispatch                     = useDispatch();
     const navigate                     = useNavigate();
     const userInfo                     = useSelector(userData);
+
+
+    useEffect(() => {
+        if(userInfo.token !== ""){
+            navigate('/post')
+        }
+    })
 
     /**
      * Update the credentials state when typing credentials on login
