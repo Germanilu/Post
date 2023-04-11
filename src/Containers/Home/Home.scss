@@ -4,5 +4,6 @@
 
 .home-design{
     @include flex();
+    flex-direction: row;
     border: 1px solid red;
 }

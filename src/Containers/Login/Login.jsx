@@ -3,6 +3,8 @@ import React, { useEffect, useState }       from "react";
 import { useDispatch, useSelector}          from "react-redux";
 import {loginUser, userData}                from "../../Features/userSlice";
 import { useNavigate }                      from "react-router-dom";
+import { MdOutlineMailLock } from "react-icons/md";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 
 const Login = () => {
@@ -11,6 +13,7 @@ const Login = () => {
         email       :"",
         password    :""
     });
+    const [showHidem, setShowHide] = useState(false);
     const dispatch                     = useDispatch();
     const navigate                     = useNavigate();
     const userInfo                     = useSelector(userData);
@@ -43,12 +46,41 @@ const Login = () => {
         console.log(credentials)
         dispatch(loginUser({email:credentials.email, password: credentials.password}))
     }
-
+   
+console.log(credentials)
 
     return(
         <div className='login-design'>
-            <input type="text" name="email" title="email" placeholder="Email" onChange={updateCredentials}/>
-            <input type="text" name="password" title="password" placeholder="Password" onChange={updateCredentials} />
+            <h1>Login</h1>
+            <p>Please sign in to continue.</p>
+            <div className='login-inputs'>
+                <p>email</p>
+                <span><MdOutlineMailLock/></span>
+                <input type="text" name="email" title="email"  onChange={updateCredentials}/>
+            </div>
+            <div className='login-inputs'>
+                <p>Password</p>
+                <span><MdOutlineMailLock/></span>
+
+                {
+                    showHidem ? (
+                        <input type="text" name="password" title="password" onChange={updateCredentials} />
+                        ):(
+                        <input type="password" name="password" title="password" onChange={updateCredentials} />
+                    )
+                }
+                
+                <span className='show-password' onClick={()=>setShowHide(!showHidem)}>
+                
+                    {showHidem ? (
+                            <AiOutlineEyeInvisible/>
+                        ):(
+                            <AiOutlineEye/>
+                        )
+                    }
+                
+                </span>
+            </div>
             <button onClick={() => attemptLogin()}>Login</button>
         </div>
     );
