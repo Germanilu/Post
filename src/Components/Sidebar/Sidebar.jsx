@@ -36,10 +36,22 @@ const Sidebar = () => {
                 </div>
                 ):(
                     <div className="profile-design">
-                        <input type="text" name='name' title='name' placeholder='Escribe tu nombre' onChange={updateUserData} />
-                        <input type="text" name='surname' title='surname' placeholder='Escribe tu apellido' onChange={updateUserData} />
-                        <input type="email" name='email' title='email' placeholder='Escribe tu email' onChange={updateUserData} />
-                        <input type="password" name='password' title='password' placeholder='Escribe tu email' onChange={updateUserData} />
+                        <div className="inputs-profile-design">
+                            <label htmlFor="name">Nome</label>
+                        <input type="text" name='name' title='name' onChange={updateUserData} />
+
+                            <label htmlFor="surname">Cognome</label>
+                        <input type="text" name='surname' title='surname' onChange={updateUserData} />
+                            <label htmlFor="surname">indirizzo email</label>
+                        <input type="text" name='surname' title='surname' onChange={updateUserData} />
+
+                            {/* <label htmlFor="email">Email</label>
+                        <input type="email" name='email' title='email'onChange={updateUserData} /> */}
+
+                            <label htmlFor="password">Password</label>
+                        <input type="password" name='password' title='password'onChange={updateUserData} />
+
+                        </div>
                         <button onClick={() => updateUserInfo()}>Save</button>
                     </div>
                 )

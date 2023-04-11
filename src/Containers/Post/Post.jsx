@@ -18,17 +18,20 @@ const Post = () => {
     const [post,setPost]                  = useState(null)
     const userInfo                        = useSelector(userData);
     const navigate                        = useNavigate();
-    
 
-    const [postData, setPostData]         = useState({
+    
+    
+    
+    const [outputAttempt, setOutputAttempt] = useState();
+    const [postData, setPostData]           = useState({
         title: '',
         description: '',
     })
 
-    const [userDetails, setUserDetails]         = useState()
+    const [userDetails, setUserDetails]     = useState()
     console.log(userDetails)
 
-    const [editUserData,setEditUserData]          = useState({
+    const [editUserData,setEditUserData]    = useState({
         open: false,
         id:""
     })
@@ -66,7 +69,7 @@ const Post = () => {
      */
     const editUser = (post) => {
         console.log(post)
-        if(userInfo.user_role.toString() === "6431c06cccf174713344640b"){
+        if(userInfo.user_role.toString() === "6431c06cccf174713344640b" || userInfo.user_role.toString() === "6431c06cccf174713344640a" ){
             setEditUserData({
                 open: !editUserData.open,
                 id:post._id
@@ -77,11 +80,41 @@ const Post = () => {
     /**
      * Function that update other users informations
      */
-    const updateUserInfo = () => {
+    const updateUserInfo = async() => {
         console.log("aqui")
         console.log(userInfo)
         console.log(editUserData)
-        console.log(userDetails)
+        console.log(userDetails) 
+
+
+        try {
+            let config = {
+                headers: { Authorization: `Bearer ${userInfo.token}` },
+            };
+
+            let body = {
+                name: userDetails.name,
+                surname: userDetails.surname,
+                email: userDetails.email,
+                role: userDetails.role,
+              };
+
+            console.log("AQUI")
+            console.log(userDetails.role)
+
+            const attempt = await axios.put(`https://bbdd-post.onrender.com/api/editProfile/${editUserData.id}`,body,config)
+            if(attempt.status === 200){
+                setOutputAttempt("Registrado Correctamente")
+                console.log(attempt)
+                // setTimeout(() => {
+                //     window.location.reload()
+                // }, 2000);
+            }
+            
+        } catch (error) {
+            setOutputAttempt(error.response.data.message)
+            console.log(error)
+        }
     }
 
     /**
@@ -163,8 +196,8 @@ const Post = () => {
                                             <div>
                                             <label htmlFor="email">Email</label>
                                             <input type="text" name='email' title='email' onChange={updateUserData} />
-                                            <label htmlFor="role">Role</label>
-                                            <select name="role" id="role" onChange={updateUserData}>
+                                            <label htmlFor="role">Role</label>                                           
+                                            <select name="role" title='role' id="role" onChange={updateUserData}>
                                                 <option value="">Seleziona un'opzione</option>
                                                 <option value="user">Usuario</option>
                                                 <option value="moderator">Moderatore</option>
@@ -172,6 +205,7 @@ const Post = () => {
                                             </select>
                                             </div>
                                         </div>
+                                            {outputAttempt}
                                         <button onClick={() => updateUserInfo()}>save</button>
                                     </div>
                                 ):(

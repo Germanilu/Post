@@ -1,5 +1,42 @@
+@import                 '../../Settings/global.scss';
 .profile-design{
-    margin-top: 2rem;
-    height: 300px;
-    border: 1px solid red;
+    .inputs-profile-design{
+        display: flex;
+        flex-direction: column;
+    }
+
+    :nth-child(1){
+        animation: 1s ease-out forwards;
+        animation-name: showbox;
+    }
+    :nth-child(2){
+        animation: 2s ease-out forwards;
+        animation-name: showbox;
+    }
+    :nth-child(3){
+        animation: 3s ease-out forwards;
+        animation-name: showbox;
+    }
+
+    & input{
+        border: none;
+        outline: none;
+        border-bottom: 1px solid $light_grey;
+        margin-bottom: 1rem;
+    }
+
+    & label{
+        @include font(inherit,0.8rem,400,inherit,capitalize);
+    }
+}
+
+
+
+@keyframes showbox {
+    from{
+        opacity: -1;
+    }
+    to{
+        opacity: 100; 
+    }
 }

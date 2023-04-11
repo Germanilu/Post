@@ -7,7 +7,6 @@
 }
 
 .sidebar-info-account{
-    border: 1px solid black;
     width: 20%;
     margin: 5rem 2rem 0rem 1rem;
     display: flex;
@@ -86,26 +85,31 @@
 }
 
 
+
 .showbox{
-    width: 100%;
-    border: 1px solid red;
+    width: 50%;
+    
     display: flex;
     flex-direction: column;
-
+    animation: 2s ease-out;
+    animation-name: showbox;
+    
     & .edit-user-input{
         width: 20%;
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 2rem;
-
+        
+        animation: 3s ease-out;
+        animation-name: showbox;
         & input{
             border: none;
             outline: none;
             border-bottom: 1px solid $light_grey;
         }
     }
-
+    
     & button{
         width: 10%;
         margin-top: 1.5rem;
@@ -114,4 +118,14 @@
 
 .hidebox{
     display: none;
+}
+
+
+@keyframes showbox {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 100; 
+    }
 }
