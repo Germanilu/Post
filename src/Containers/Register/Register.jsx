@@ -1,6 +1,10 @@
 import React, { useState }              from 'react';
 import axios                            from 'axios';
 import './Register.scss';
+import { MdOutlineMailLock } from "react-icons/md";
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock } from "react-icons/ai";
+import { GrContactInfo} from "react-icons/gr";
+import {BsArrowRight} from "react-icons/bs";
 const Register = () => {
 
     const [userData, setUserData] = useState({
@@ -34,7 +38,7 @@ const Register = () => {
         ];
         for (let value of inputs) {
             if (userData[value] === '') {
-                setOutputAttempt("Tienes que rellenar todos los datos");
+                setOutputAttempt("Devi inserire tutti i dati");
                 return;
             }
         }
@@ -42,17 +46,17 @@ const Register = () => {
         /*REGULAR EXPRESSION*/
         //Email
         if (!userData.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)) {
-            setOutputAttempt("Inserta un email valido");
+            setOutputAttempt("Inserire un'email valido");
             return;
         }
         //Password with special character
         if (!userData.password.match(/^(?=.*[*@!#%&()^~{}]).*$/)) {
-            setOutputAttempt("La password tiene que tener un caracter especial");
+            setOutputAttempt("La password deve contenere un carattere speciale");
             return;
         }
         //Check double password verification
         if(userData.password !== passwordVerification){
-            setOutputAttempt("Las contraseñas no coinciden");
+            setOutputAttempt("Le password non coincidono");
             return;
         }
         
@@ -61,11 +65,8 @@ const Register = () => {
             
             const attempt = await axios.post("https://bbdd-post.onrender.com/api/auth/userSignIn",userData)
             if(attempt.status === 200){
-                setOutputAttempt("Registrado Correctamente")
+                setOutputAttempt("Registrato Correttamente, Effettua il login")
                 console.log(attempt)
-                // setTimeout(() => {
-                //     window.location.reload()
-                // }, 2000);
             }
             
         } catch (error) {
@@ -75,13 +76,41 @@ const Register = () => {
 
     return(
         <div className="register-design">
-         <input type="text" name='name' title='name' placeholder='Escribe tu nombre' onChange={updateUserData} />
-         <input type="text" name='surname' title='surname' placeholder='Escribe tu apellido' onChange={updateUserData} />
-         <input type="email" name='email' title='email' placeholder='Escribe tu email' onChange={updateUserData} />
-         <input type="password" name='password' title='password' placeholder='Escribe tu password' onChange={updateUserData} />
-         <input type="text" placeholder='Repite la constraseña' onChange={e => setPasswordVerification(e.target.value)} />
+            <div className='square'></div>
+            <h1>Registrati</h1>
+            <div className='register-inputs'>
+                <p>Nome</p>
+                <span><GrContactInfo/></span>
+                <input type="text" name='name' title='name'  onChange={updateUserData} />
+            </div>
+            <div className='register-inputs'>
+                <p>Cognome</p>
+                <span><GrContactInfo/></span>
+                <input type="text" name='surname' title='surname'  onChange={updateUserData} />
+            </div>
+            <div className='register-inputs'>
+                <p>Email</p>
+                <span><MdOutlineMailLock/></span>
+                <input type="email" name='email' title='email' onChange={updateUserData} />
+            </div>
+            <div className='register-inputs'>
+                <p>Password</p>
+                <span><AiOutlineLock/></span>
+                <input type="password" name='password' title='password'  onChange={updateUserData} />
+            </div>
+            <div className='register-inputs'>
+                <p>Ripeti Password</p>
+                <span><AiOutlineLock/></span>
+                <input type="password" onChange={e => setPasswordVerification(e.target.value)} />
+            </div>
          <div className="messageError">{outputAttempt}</div>
-         <button className="registerButton" onClick={() => registerUser()}><span>Registrarse</span></button>
+
+         <div className='button-container'>
+            <div className="register-button" onClick={() => registerUser()}>
+                <span>Registrati</span>
+                <BsArrowRight/>
+            </div>
+         </div>         
         </div>
     )
 }

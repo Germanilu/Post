@@ -32,7 +32,7 @@ export const userSlice = createSlice({
 });
 
 //Login 
-export const loginUser = (data) => async(dispatch) => {
+export const loginUser = (data, setOutputAttempt) => async(dispatch) => {
     try {
         console.log("LOGIN!")
         const user = await axios.post("https://bbdd-post.onrender.com/api/auth/userLogin", data);
@@ -42,7 +42,7 @@ export const loginUser = (data) => async(dispatch) => {
             dispatch(login({ ...decode, token: user.data.token}));
         }
     } catch (error) {
-        console.log(error)
+      setOutputAttempt(error.response.data.message)
     }
 }
 //Logout

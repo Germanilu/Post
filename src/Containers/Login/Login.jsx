@@ -4,7 +4,11 @@ import { useDispatch, useSelector}          from "react-redux";
 import {loginUser, userData}                from "../../Features/userSlice";
 import { useNavigate }                      from "react-router-dom";
 import { MdOutlineMailLock } from "react-icons/md";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock } from "react-icons/ai";
+
+
+import {BsArrowRight} from "react-icons/bs";
+
 
 
 const Login = () => {
@@ -14,6 +18,7 @@ const Login = () => {
         password    :""
     });
     const [showHidem, setShowHide] = useState(false);
+    const [outputAttempt, setOutputAttempt] = useState();
     const dispatch                     = useDispatch();
     const navigate                     = useNavigate();
     const userInfo                     = useSelector(userData);
@@ -38,21 +43,26 @@ const Login = () => {
      * Dispatch data to redux 
      */
     const attemptLogin = () => {
-        //Regular expression to validate email
-        // if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(credentials.email)) {
-        //     return;
-        // }
+        // Regular expression to validate email
+        if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(credentials.email)) {
+            setOutputAttempt(" Introduci un'email valida ");
+            return;
+        }
         console.log("entro")
         console.log(credentials)
-        dispatch(loginUser({email:credentials.email, password: credentials.password}))
+        setOutputAttempt("Sto controllando i dati...")
+        dispatch(loginUser({email:credentials.email, password: credentials.password}, setOutputAttempt))
     }
    
 console.log(credentials)
 
     return(
+      
+
         <div className='login-design'>
+            <div className='square'></div>
             <h1>Login</h1>
-            <p>Please sign in to continue.</p>
+            <p>Accedi per continuare</p>
             <div className='login-inputs'>
                 <p>email</p>
                 <span><MdOutlineMailLock/></span>
@@ -60,7 +70,7 @@ console.log(credentials)
             </div>
             <div className='login-inputs'>
                 <p>Password</p>
-                <span><MdOutlineMailLock/></span>
+                <span><AiOutlineLock/></span>
 
                 {
                     showHidem ? (
@@ -81,8 +91,16 @@ console.log(credentials)
                 
                 </span>
             </div>
-            <button onClick={() => attemptLogin()}>Login</button>
+            <div className="messageError">{outputAttempt}</div>
+            <div className='button-container'>
+            <div className='login-button' onClick={() => attemptLogin()}>
+                Login
+                <BsArrowRight/>
+            </div>
+            </div>
+            <p className='login-info-text'>Accedi per poter pubblicare un  <span>post</span> </p>
         </div>
+        
     );
 }
 

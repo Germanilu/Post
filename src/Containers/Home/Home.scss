@@ -5,5 +5,7 @@
 .home-design{
     @include flex();
     flex-direction: row;
-    border: 1px solid red;
+    gap: 5rem;
+    background-color: $timberwolf;
+    min-height: 100vh;
 }

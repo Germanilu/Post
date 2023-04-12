@@ -1,23 +1,32 @@
 @import                 '../../Settings/global.scss';
 
 .login-design{
-    width: 30%;
-    min-height: 500px;
-    border: 1px solid green;
-    margin-top: 5rem;
+    width: 25%;
+    min-height: 600px;
+    background-color: $white;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.35);
+    border-radius: 10px;
+    margin-top: 10rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
+    & h1{
+        margin-bottom: .5rem;
+        @include font(inherit, 1.6rem,700,inherit,capitalize);
+    }
+    
     p{
         margin-bottom: 2rem;
+        @include font(inherit, 1rem,500,inherit,capitalize);
     }
 
     & .login-inputs{
         // border: 1px solid red;        
         box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.35);
-        width: 60%;
+        width: 80%;
         height: 20%;
         padding: 15px 10px;
         margin-bottom: 1rem;
@@ -39,14 +48,14 @@
             border: none;
             outline: none;
             border-bottom: 1px solid black;
-            width: 80%;
-            
-            
+            width: 80%;  
         }
+    
 
 
         .show-password{
             @include font(inherit, 0.8rem,300,inherit,capitalize);
+            margin-right: 0;
         }
 
        
@@ -65,7 +74,57 @@
             transition: 1s 0.5s;
         }
     }
-
-
+    .login-info-text{
+        margin-top: 2rem;
+        @include font(inherit, 0.8rem,400,inherit);
+        display: flex;
+        width: 90%;
+        justify-content: right;
+        gap: 0.2rem;
+        margin-right: 2rem;
+        
+        & span{
+            color: $neon_carrot ;
+            font-weight: 400;
+            @include font($neon_carrot, 0.8rem,700,inherit,capitalize);
+        }
+    }
 }
+
+.button-container{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    margin-top: 1rem;
+    .login-button{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: .5rem 2rem;
+        border-radius: 20px;
+        background: linear-gradient(90deg, rgba(252,204,130,1) 0%, rgba(242,167,66,1) 100%);
+        @include font(inherit, 0.8rem,400,inherit,capitalize);
+        cursor: pointer;
+        margin-right: 2rem;
+        
+
+    }
+    .login-button:hover{
+        gap: 1.5rem;
+        transition: 1s;
+    }
+}
+
+.square{
+    width: 300px;
+    height: 200px;
+    background-color: $neon_carrot;
+    position: absolute;
+    top: 0;
+    right: 0;
+    clip-path: ellipse(37% 27% at 81% 23%);
+    background: linear-gradient(90deg, rgba(242,167,66,1) 0%, rgba(252,204,130,1) 100%);
+}
+
+
 
