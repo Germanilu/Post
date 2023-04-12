@@ -12,8 +12,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+    border-right: 2px solid $neon_carrot;
 
     & .user-info-name{
+        cursor: pointer;
         @include font(inherit, 1rem,700,inherit,capitalize)
     }
 }
@@ -37,10 +39,12 @@
         align-items: center;
         gap: 0.5rem;
         @include font(inherit,0.8rem,400,inherit,capitalize);
+        width: max-content;
+        border-bottom: 1px solid $chardonnay;
     }
 
     .post-title{
-        @include font(inherit, 1.2rem,700,inherit,capitalize)
+        @include font(inherit, 1.2rem,700,inherit,capitalize);
     }
     .post-description{
         @include font($light_grey  ,0.9rem, 400,inherit)
@@ -79,9 +83,22 @@
     }
 
     .create-post-button{
-        width: 20%;
-        margin-top: 1.5rem;
+        width: max-content;
+        padding: 0.5rem 1.5rem;
+        margin: 2rem 0rem;
+        cursor: pointer;
+        border-top: 1px solid $neon_carrot ;
+        border-left: 1px solid $neon_carrot ;
+        border-bottom: 1px solid $chardonnay;
+        border-right: 1px solid $chardonnay;
+        @include font(inherit,0.8rem,500,inherit,capitalize);
     }
+    
+    .create-post-button:active{
+        border-top: 2px solid $neon_carrot ;
+        border-left: 2px solid $neon_carrot ;
+    }
+    
 }
 
 

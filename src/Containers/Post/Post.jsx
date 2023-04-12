@@ -100,11 +100,11 @@ const Post = () => {
               };
 
             console.log("AQUI")
-            console.log(userDetails.role)
+            console.log(userDetails.role.toString())
 
             const attempt = await axios.put(`https://bbdd-post.onrender.com/api/editProfile/${editUserData.id}`,body,config)
             if(attempt.status === 200){
-                setOutputAttempt("Registrado Correctamente")
+                setOutputAttempt("Utente aggiornato correttamente")
                 console.log(attempt)
                 // setTimeout(() => {
                 //     window.location.reload()
@@ -135,7 +135,7 @@ const Post = () => {
             }
             
         } catch (error) {
-            console.log(error)
+            setOutputAttempt(error.response.data.message)
         }
     }
 
@@ -230,7 +230,7 @@ const Post = () => {
                     <label htmlFor="description">description</label>
                     <textarea className='create-post-textarea' type="text" name='description' title='description' onChange={updatePostData}/>
                 </div>
-                <button className='create-post-button' onClick={() => createPost()}>Post</button>
+                <div className='create-post-button' onClick={() => createPost()}>Post</div>
             </div>
         </div>
         </div>

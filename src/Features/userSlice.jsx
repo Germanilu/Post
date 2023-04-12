@@ -51,7 +51,7 @@ export const logOut = () => (dispatch) => {
 }
 
 //Update
-export const updateUser = (userInfo, userDetails) => async (dispatch) => {
+export const updateUser = (userInfo, userDetails, setOutputAttempt) => async (dispatch) => {
     try {
         console.log("ENTRO AQUI")
       let body = {
@@ -60,6 +60,7 @@ export const updateUser = (userInfo, userDetails) => async (dispatch) => {
         email: userDetails.email,
         password: userDetails.password
       };
+      console.log(body)
   
       let config = {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -72,10 +73,14 @@ export const updateUser = (userInfo, userDetails) => async (dispatch) => {
       );
       if (attempt.status === 200) {
         dispatch(update({ userDetails }));
-        dispatch(logout())
+        setOutputAttempt("Dati aggiornati correttamente, Verrà effettuato il Logout")
+        setTimeout(() => {
+          dispatch(logout())
+        }, 3000);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      setOutputAttempt(error.response.data.message)
     }
   };
 

@@ -8,11 +8,12 @@ const Sidebar = () => {
     const dispatch                        = useDispatch();
     const [showProfile, setShowProfile]   = useState(false);
     const [showData, setShowData] =useState(true)
+    const [outputAttempt, setOutputAttempt] = useState("");
     const [userDetails, setUserDetails] = useState({
         name: userInfo.user_name,
         surname: userInfo.user_surname,
         email: userInfo.user_email,
-        password:""
+        password:userInfo.user_password
     })
     
     const updateUserData = (data) => {
@@ -20,7 +21,8 @@ const Sidebar = () => {
     }
 
     const updateUserInfo = () => {
-        dispatch(updateUser(userInfo,userDetails))
+        setOutputAttempt("Sto controllando i dati...")
+        dispatch(updateUser(userInfo,userDetails, setOutputAttempt))
     }
 
 
@@ -30,9 +32,9 @@ const Sidebar = () => {
             {showProfile && (
                 showData ? (
                 <div onClick={() => setShowData(!showData)} className="profile-design">
-                   <div>{userInfo.user_name}</div>
-                   <div>{userInfo.user_surname}</div>
-                   <div>{userInfo.user_email}</div>
+                   <div className="user-info">{userInfo.user_name}</div>
+                   <div className="user-info">{userInfo.user_surname}</div>
+                   <div className="user-info">{userInfo.user_email}</div>
                 </div>
                 ):(
                     <div className="profile-design">
@@ -43,20 +45,17 @@ const Sidebar = () => {
                             <label htmlFor="surname">Cognome</label>
                         <input type="text" name='surname' title='surname' onChange={updateUserData} />
                             <label htmlFor="surname">indirizzo email</label>
-                        <input type="text" name='surname' title='surname' onChange={updateUserData} />
-
-                            {/* <label htmlFor="email">Email</label>
-                        <input type="email" name='email' title='email'onChange={updateUserData} /> */}
+                        <input type="text" name='email' title='email' onChange={updateUserData} />
 
                             <label htmlFor="password">Password</label>
                         <input type="password" name='password' title='password'onChange={updateUserData} />
-
+                        <div className="messageError">{outputAttempt}</div>
                         </div>
-                        <button onClick={() => updateUserInfo()}>Save</button>
+                        <div className="profile-button save-button" onClick={() => updateUserInfo()}>Salva</div>
                     </div>
                 )
             )}
-            <div className="headerButton" onClick={() => dispatch(logout())}>Logout</div>
+            <div className="profile-button" onClick={() => dispatch(logout())}>Logout</div>
         </Fragment>
     )
 }
