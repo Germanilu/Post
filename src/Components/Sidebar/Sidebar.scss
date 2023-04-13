@@ -16,10 +16,12 @@
     & label{
         @include font(inherit,0.8rem,400,inherit,capitalize);
     }
-
-
+    
+    
     .user-info{
         margin-bottom: .5rem;
+        cursor: pointer;
+        @include font(inherit,0.8rem,400,inherit,capitalize);
     }
     
 }

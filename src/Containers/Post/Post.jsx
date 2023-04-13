@@ -168,6 +168,7 @@ const Post = () => {
     }
     return(
         <div className="post-design">
+            
             <div className='sidebar-info-account'>
                 <Sidebar></Sidebar>
             </div>
@@ -232,6 +233,10 @@ const Post = () => {
                 </div>
                 <div className='create-post-button' onClick={() => createPost()}>Post</div>
             </div>
+        </div>
+
+        <div className="circle-box">
+        <div className='circle'></div>
         </div>
         </div>
             
