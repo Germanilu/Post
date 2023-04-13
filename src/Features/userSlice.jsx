@@ -3,7 +3,9 @@ import axios                    from "axios";
 import jwt                      from 'jwt-decode';
 
 
-//Creating new Slice with a name and an initial state
+/**
+ * Slices
+ */
 export const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -31,12 +33,16 @@ export const userSlice = createSlice({
     }
 });
 
-//Login 
+
+/**
+ * Login Function
+ * @param {Object} data 
+ * @param {String} setOutputAttempt 
+ * @returns Dispatch login || error
+ */
 export const loginUser = (data, setOutputAttempt) => async(dispatch) => {
     try {
-        console.log("LOGIN!")
         const user = await axios.post("https://bbdd-post.onrender.com/api/auth/userLogin", data);
-        console.log(user)
         let decode = jwt(user.data.token)
         if(user.status === 200){
             dispatch(login({ ...decode, token: user.data.token}));
@@ -45,22 +51,30 @@ export const loginUser = (data, setOutputAttempt) => async(dispatch) => {
       setOutputAttempt(error.response.data.message)
     }
 }
-//Logout
+
+/**
+ * Logout Function
+ * @returns Dispatch Logout
+ */
 export const logOut = () => (dispatch) => {
     dispatch(logout())
 }
 
-//Update
+/**
+ * Update user profile
+ * @param {Object} userInfo 
+ * @param {Object} userDetails 
+ * @param {String} setOutputAttempt 
+ * @returns Dispatch update || error
+ */
 export const updateUser = (userInfo, userDetails, setOutputAttempt) => async (dispatch) => {
     try {
-        console.log("ENTRO AQUI")
       let body = {
         name: userDetails.name,
         surname: userDetails.surname,
         email: userDetails.email,
         password: userDetails.password
       };
-      console.log(body)
   
       let config = {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -79,12 +93,11 @@ export const updateUser = (userInfo, userDetails, setOutputAttempt) => async (di
         }, 3000);
       }
     } catch (error) {
-      console.log(error)
       setOutputAttempt(error.response.data.message)
     }
   };
 
 
-export const {login,logout,update}             = userSlice.actions;
-export const userData                   = (state) => state.user;
-export default                          userSlice.reducer;
+export const {login,logout,update}              = userSlice.actions;
+export const userData                           = (state) => state.user;
+export default                                  userSlice.reducer;

@@ -1,39 +1,9 @@
 @import                 '../../Settings/global.scss';
-
-
-  
-  .circle-box {
-    width: 300px;
-    height:100px;
-    margin-bottom:2em;
-    border: 1px solid rgb(150, 97, 97);
-    position: absolute;
-    right: 0;
-    transform: rotate(-45deg ) ;
-  }
-  
  
 .post-design{
-
-
-    
-
-    // .circle{
-    //     width: 200px;
-    //     height: 200px;
-    //     background-color: orange;
-    //     border-radius: 50%;
-    //     position: absolute;
-    //     right:-50px;
-    //     top:-50px;
-    // }
-
-
-
-    @include flex();
+    @include dislpay();
     flex-direction: row;
     align-items: flex-start;
-    // background-color: #dbd7cc;
 }
 
 .sidebar-info-account{
@@ -62,9 +32,8 @@
     flex-direction: column;
     margin-top: 1rem;
     padding: 1rem;
-    // border: 1px solid black;
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.35);
-    background-color: #f9dbae;
+    background-color: #fdf4e767;
 
     .post-info{
         width: 50%;
@@ -81,14 +50,12 @@
         @include font(inherit, 1.2rem,700,inherit,capitalize);
     }
     .post-description{
-        // border-top: 1px solid black;
         @include font($light_grey  ,0.9rem, 400,inherit)
     }
     
 }
 
 .create-post-container{
-    // border: 1px solid blue;
     margin-top: 2rem;
     width: 60%;
     display: flex;
@@ -133,28 +100,26 @@
         border-top: 2px solid $neon_carrot ;
         border-left: 2px solid $neon_carrot ;
     }
-    
 }
 
 
 
 .showbox{
     width: 50%;
-    
     display: flex;
     flex-direction: column;
     animation: 2s ease-out;
     animation-name: showbox;
-    
+
     & .edit-user-input{
         width: 20%;
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 2rem;
-        
         animation: 3s ease-out;
         animation-name: showbox;
+
         & input{
             border: none;
             outline: none;
@@ -171,6 +136,55 @@
 .hidebox{
     display: none;
 }
+
+.circle-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0;
+    border-style: solid;
+    border-width: 0 0 100vh 100vw;
+    border-color: transparent transparent rgba(168, 108, 108, 0) transparent;
+    z-index: -1;
+  }
+  
+  .circle {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+  }
+  
+  .circle1 {
+    background-color:  rgba(255, 166, 0, 0.11);
+    top: 50%;
+    right: 0;
+    margin-top: -20px;
+    margin-right: -20px;
+    width: 300px;
+    height: 300px;
+}
+
+    .circle2 {
+  
+    background-color:  rgba(255, 166, 0, 0.164);
+    top: 30%;
+    right: 30%;
+    margin-top: -10px;
+    margin-right: -10px;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .circle3 {
+    background-color:  rgba(255, 166, 0, 0.226);
+    top: 80%;
+    right: 10%;
+    margin-top: -20px;
+    margin-right: -20px;
+    width: 100px;
+    height: 100px;
+  }
 
 
 @keyframes showbox {

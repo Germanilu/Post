@@ -7,10 +7,7 @@
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.35);
     border-radius: 10px;
     margin-top: 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include dislpay();
     position: relative;
 
     & h1{
@@ -77,9 +74,8 @@
     .login-info-text{
         margin-top: 2rem;
         @include font(inherit, 0.8rem,400,inherit);
-        display: flex;
+        @include dislpay(flex,row,inherit,right);
         width: 90%;
-        justify-content: right;
         gap: 0.2rem;
         margin-right: 2rem;
         
@@ -92,13 +88,11 @@
 }
 
 .button-container{
-    display: flex;
-    justify-content: right;
+    @include dislpay(flex,row,inherit,right);
     width: 100%;
     margin-top: 1rem;
     .login-button{
-        display: flex;
-        align-items: center;
+        @include dislpay(flex,row);
         gap: 0.5rem;
         padding: .5rem 2rem;
         border-radius: 20px;

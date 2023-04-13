@@ -1,9 +1,7 @@
-@import                 '../../Settings/global.scss';
-
-
+@import                             '../../Settings/global.scss';
 
 .home-design{
-    @include flex();
+    @include dislpay();
     flex-direction: row;
     gap: 5rem;
     background-color: $timberwolf;
